@@ -1,20 +1,24 @@
 module.exports = function transform(arr) {
-    if (!Array.isArray(arr)) throw new Error();
-
-    let newArr = [];
-
+    if (!Array.isArray(arr)) throw Error;
+    let newArray = [];
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i] == "--discard-next") {
-            i++;
-        } else if (arr[i] == "--discard-prev") {
-            newArr.pop();
-        } else if (arr[i] == "--double-next" && i + 1 != arr.length) {
-            newArr.push(arr[i + 1]);
-        } else if (arr[i] == "--double-prev" && i - 1 > 0) {
-            newArr.push(arr[i - 1]);
-        } else if (arr[i] != "--discard-prev" && arr[i] != "--double-prev" && arr[i] != "--double-next" && arr[i] != "--discard-next") {
-            newArr.push(arr[i]);
-        }
+        if (arr[i] === "--double-next") {
+            newArray.push(arr[i + 1]);
+        } else if (arr[i] === "--double-prev") {
+            newArray.push(newArray[newArray.length - 1]);
+        } else if (arr[i - 1] === "--discard-next") {
+            newArray.push("Empty value");
+        } else if (arr[i + 1] === "--discard-prev") {
+            newArray.push("Empty value");
+        } else newArray.push(arr[i]);
     }
-    return newArr;
+    let finalArray = newArray.filter(
+        (each) =>
+            each !== "Empty value" &&
+            each !== "--discard-next" &&
+            each !== "--discard-prev" &&
+            each !== undefined
+    );
+
+    return finalArray;
 };
