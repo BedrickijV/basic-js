@@ -1,10 +1,6 @@
 class VigenereCipheringMachine {
     constructor(mode) {
-        if (mode == false) {
-            this.mode = false;
-        } else {
-            this.mode = true;
-        }
+        this.mode = mode !== false;
     }
 
     encrypt(message, key) {
@@ -22,7 +18,7 @@ class VigenereCipheringMachine {
 
         for (let i = 0, j = 0; i < message.length; i++ , j++) {
             if (ABC.includes(message[i])) {
-                number = ABC.indexOf(message[i]) + ABC.indexOf(key[j])
+                number = ABC.indexOf(message[i]) + ABC.indexOf(key[j]);
                 if (number >= ABC.length) {
                     number -= ABC.length;
                 }
@@ -33,7 +29,7 @@ class VigenereCipheringMachine {
             }
         }
 
-        if (this.mode == false) {
+        if (this.mode === false) {
             return result.split('').reverse().join('');
         } else {
             return result;
@@ -66,7 +62,7 @@ class VigenereCipheringMachine {
             }
         }
 
-        if (this.mode == false) {
+        if (this.mode === false) {
             return result.split('').reverse().join('');
         } else {
             return result;
